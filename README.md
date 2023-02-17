@@ -89,8 +89,12 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- Markdown
+  - [The easiest way to create a README](https://readme.so/editor)
+  - [Awesome README](https://github.com/matiassingers/awesome-readme)
+  - [Auto-generating Markdown tables of contents](https://alexharv074.github.io/2018/08/28/auto-generating-markdown-tables-of-contents.html) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
+- Node.js
+  - [CommonJS vs. ES modules in Node.js](https://blog.logrocket.com/commonjs-vs-es-modules-node-js/)
 
 **Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 
