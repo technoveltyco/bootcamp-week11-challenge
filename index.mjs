@@ -1,7 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
+import zlib from "zlib";
 import inquirer from "inquirer";
-import generateMarkdown from "./utils/generateMarkdown.mjs";
+import { setSettings, generateMarkdown } from "./utils/generateMarkdown.mjs";
 
 /**
  * @type {boolean}
@@ -16,6 +17,7 @@ let generated = false;
 const sectionsChoices = [
   "title",
   "description",
+  "toc",
   "installation",
   "usage",
   "license",
@@ -31,17 +33,20 @@ const sectionsChoices = [
 const sectionsQuestions = [
   {
     name: "sections",
-    type: "list",
-    message: "Choose a section or select [Next ->] to continue:",
+    type: "rawlist",
+    message: "Choose a section or select [Next] to continue:",
     choices: [...sectionsChoices, "next"],
-    default: "done",
-    transformer(input, answers, flags) {
-      if (input === "next") {
-        input += " ->";
-      }
-      input[0].toUpperCase();
-      return input;
-    },
+    // transformer(input) {
+    //   if (input === "next") {
+    //     input += " ->";
+    //   } else if (input === "toc") {
+    //     return "Table of Contents";
+    //   } else if (input === "questions") {
+    //     return "FAQs";
+    //   }
+    //   input[0].toUpperCase();
+    //   return input;
+    // },
   },
 ];
 
@@ -58,24 +63,19 @@ const readmeQuestions = {
       message: "What's the title of your project?",
       validate(input) {
         if (input.lenght < 3) {
-          return "The title should be at least 3 characters long.";
+          return "Title should be at least 3 characters long.";
         }
-
         return true;
       },
     },
+  ],
+  description: [
     {
       type: "editor",
       name: "description",
       message: `Please write a short description for your project. 
 (Enter at least 1 line of 80 characters)`,
-      validate(text) {
-        if (text.lenght < 80 || text.split("\n").length < 1) {
-          return "The description must be at least 1 line of 80 characters.";
-        }
-
-        return true;
-      },
+      validate: inquirerValidate,
       waitUserInput: true,
     },
   ],
@@ -84,13 +84,7 @@ const readmeQuestions = {
       type: "editor",
       name: "installation",
       message: "Please write the installation instructions of your project.",
-      validate(text) {
-        if (text.lenght < 80 || text.split("\n").length < 1) {
-          return "The installation must be at least 1 line of 80 characters.";
-        }
-
-        return true;
-      },
+      validate: inquirerValidate,
       waitUserInput: true,
     },
   ],
@@ -99,13 +93,7 @@ const readmeQuestions = {
       type: "editor",
       name: "usage",
       message: "Please provide information on how to use your project.",
-      validate(text) {
-        if (text.lenght < 80 || text.split("\n").length < 1) {
-          return "The usage must be at least 1 line of 80 characters.";
-        }
-
-        return true;
-      },
+      validate: inquirerValidate,
       waitUserInput: true,
     },
   ],
@@ -135,13 +123,7 @@ const readmeQuestions = {
       name: "contributing",
       message:
         "Please provide information on how you contributed to your project.",
-      validate(text) {
-        if (text.lenght < 80 || text.split("\n").length < 1) {
-          return "The usage must be at least 1 line of 80 characters.";
-        }
-
-        return true;
-      },
+      validate: inquirerValidate,
       waitUserInput: true,
     },
   ],
@@ -150,13 +132,7 @@ const readmeQuestions = {
       type: "editor",
       name: "tests",
       message: "Please provide details on how to run tests in your project.",
-      validate(text) {
-        if (text.lenght < 80 || text.split("\n").length < 1) {
-          return "The usage must be at least 1 line of 80 characters.";
-        }
-
-        return true;
-      },
+      validate: inquirerValidate,
       waitUserInput: true,
     },
   ],
@@ -165,33 +141,28 @@ const readmeQuestions = {
       type: "editor",
       name: "questions",
       message: "Please include FAQs for your project.",
-      validate(text) {
-        if (text.lenght < 80 || text.split("\n").length < 1) {
-          return "The usage must be at least 1 line of 80 characters.";
-        }
-
-        return true;
-      },
+      validate: inquirerValidate,
       waitUserInput: true,
     },
   ],
 };
 
 /**
- * @type {Array}
- *    The questions for the user.
- */
-let questions = [];
-
-/**
- * Writes the README file.
+ * Inquirer validator for input text.
  *
- * @param {string} fileName
- *    The filename of the README.
- * @param {Object|Array|string} data
- *    The data to dump into the file.
+ *  It validates that the text is at least 1 line of 80 characters.
+ *
+ * @param {string} intput
+ *    The user input.
+ * @returns {string|boolean}
+ *    The validation result.
  */
-function writeToFile(fileName, data) {}
+function inquirerValidate(input) {
+  if (input.lenght < 80 || input.split("\n").length < 1) {
+    return "This section must be at least 1 line of 80 characters.";
+  }
+  return true;
+}
 
 /**
  * Asks for the README sections recursively.
@@ -207,7 +178,7 @@ function askSections(questions) {
     .then((answers) => {
       const { sections: section } = answers;
 
-      if (section === "next" || section === "done") {
+      if (section === "next") {
         return { sections: [] };
       }
 
@@ -233,28 +204,42 @@ function askSections(questions) {
     });
 }
 
-// function to initialize program
+/**
+ * Writes the README and parsed HTML files
+ * to a compressed file.
+ *
+ * @param {string} fileName
+ *    The filename.
+ * @param {Array} data
+ *    The data to compress.
+ * @return {boolean}
+ *    The flag of the file generation result.
+ */
+function writeToFile(fileName, data) {
+  return true;
+}
+
+/**
+ * function to initialize program
+ */
 async function init() {
   try {
     const { sections } = await askSections(sectionsQuestions);
 
     if (!sections.length) {
-      throw new Error("No sections for README.");
+      throw new Error("No sections for the README.");
     }
 
     let readme = {};
-
     for (let i = 0; i < sections.length; i++) {
       const section = sections[i];
-
-      const answers = await inquirer.prompt(readmeQuestions[section]);
-      readme[section] = answers[section];
+      readme = await inquirer.prompt(readmeQuestions[section]);
     }
+    const [markdown, html] = await generateMarkdown(readme);
 
-    const markdown = generateMarkdown(readme);
+    console.log(markdown, html);
 
-    console.log(markdown);
-    generated = true;
+    generated = writeToFile("README", [markdown, html]);
   } catch (error) {
     console.error(error);
     generated = false;
@@ -275,6 +260,32 @@ async function init() {
     }
   }
 }
+
+///
+// Main
+///
+
+// Set system settings.
+const settings = {
+  generator: {
+    readmeFilename: "README",
+    templatesFolder: path.resolve("./templates/partials/"),
+  },
+  parser: {
+    html: true, // Enable HTML tags in source
+    xhtmlOut: false, // Use '/' to close single tags (<br />)
+    breaks: true, // Convert '\n' in paragraphs into <br>
+    langPrefix: "language-", // CSS language prefix for fenced blocks
+
+    // Enable some language-neutral replacement + quotes beautification
+    typographer: true,
+
+    // Double + single quotes replacement pairs, when typographer enabled,
+    // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+    quotes: "“”‘’",
+  },
+};
+setSettings(settings);
 
 // function call to initialize program
 init();

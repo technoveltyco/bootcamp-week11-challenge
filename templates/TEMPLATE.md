@@ -1,57 +1,39 @@
+<!-- 
+  This markdown was generated with README Generator.
 
-# Project Title
+  - Author: Technoveltyco (https://github.com/technoveltyco)
+  - Repo: https://github.com/technoveltyco/bootcamp-week11-challenge
+  - License: MIT (https://choosealicense.com/licenses/mit/)
+-->
 
-A brief description of what this project does and who it's for
+# <!-- title -->
 
+<!-- description -->
 
 ## Table of Contents
 
-{:toc}
-
+<!-- toc -->
 
 ## Installation
 
-Install my-project with npm
-
-```bash
-  npm install my-project
-  cd my-project
-```
+<!-- installation -->
     
 ## Usage/Examples
 
-```javascript
-import Component from 'my-project'
-
-function App() {
-  return <Component />
-}
-```
-
+<!-- usage -->
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
-
+<!-- license -->
 
 ## Contributing
 
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
-
+<!-- contributing -->
 
 ## Running Tests
 
-To run tests, run the following command
+<!-- tests -->
 
-```bash
-  npm run test
-```
+## FAQs
 
-
-## Questions
-
-Add your questions here...
+<!-- questions -->
