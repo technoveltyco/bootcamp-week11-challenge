@@ -4,6 +4,12 @@ import inquirer from "inquirer";
 import generateMarkdown from "./utils/generateMarkdown.mjs";
 
 /**
+ * @type {boolean}
+ *    The generated flag.
+ */
+let generated = false;
+
+/**
  * @type {Array[string]}
  *    The sections available to choose for the README.
  */
@@ -26,10 +32,13 @@ const sectionsQuestions = [
   {
     name: "sections",
     type: "list",
-    message: "Choose a section or select [Next] to continue:",
-    choices: [...sectionsChoices, "Next"],
-    default: "Done",
+    message: "Choose a section or select [Next ->] to continue:",
+    choices: [...sectionsChoices, "next"],
+    default: "done",
     transformer(input, answers, flags) {
+      if (input === "next") {
+        input += " ->";
+      }
       input[0].toUpperCase();
       return input;
     },
@@ -56,10 +65,10 @@ const readmeQuestions = {
       },
     },
     {
-      type: "input",
+      type: "editor",
       name: "description",
-      message:
-        "Please write a short description for your project of at least 1 line of 80 characters.",
+      message: `Please write a short description for your project. 
+(Enter at least 1 line of 80 characters)`,
       validate(text) {
         if (text.lenght < 80 || text.split("\n").length < 1) {
           return "The description must be at least 1 line of 80 characters.";
@@ -198,7 +207,7 @@ function askSections(questions) {
     .then((answers) => {
       const { sections: section } = answers;
 
-      if (section === "Next" || section === "Done") {
+      if (section === "next" || section === "done") {
         return { sections: [] };
       }
 
@@ -214,7 +223,9 @@ function askSections(questions) {
     .catch((error) => {
       if (error.isTtyError) {
         // Prompt couldn't be rendered in the current environment
-        throw Error("Prompt couldn't be rendered in the current environment.");
+        throw new Error(
+          "Prompt couldn't be rendered in the current environment."
+        );
       } else {
         // Something else went wrong
         console.error(error);
@@ -225,20 +236,43 @@ function askSections(questions) {
 // function to initialize program
 async function init() {
   try {
-    const { sections: sectionsAnswers } = await askSections(sectionsQuestions);
+    const { sections } = await askSections(sectionsQuestions);
 
-    let readmeAnswers = {};
-
-    for (let i = 0; i < sectionsAnswers.length; i++) {
-      const section = sectionsAnswers[i];
-
-      const answers = await inquirer.prompt(readmeQuestions[section]);
-      readmeAnswers[section] = answers[section];
+    if (!sections.length) {
+      throw new Error("No sections for README.");
     }
 
-    console.log(readmeAnswers);
+    let readme = {};
+
+    for (let i = 0; i < sections.length; i++) {
+      const section = sections[i];
+
+      const answers = await inquirer.prompt(readmeQuestions[section]);
+      readme[section] = answers[section];
+    }
+
+    const markdown = generateMarkdown(readme);
+
+    console.log(markdown);
+    generated = true;
   } catch (error) {
     console.error(error);
+    generated = false;
+  } finally {
+    if (!generated) {
+      const answer = await inquirer.prompt([
+        {
+          type: "confirm",
+          name: "tryAgain",
+          message: "Do you want to give another try?",
+          default: false,
+        },
+      ]);
+
+      if (answer.tryAgain) {
+        init();
+      }
+    }
   }
 }
 
