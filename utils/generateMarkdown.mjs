@@ -1,8 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { Remarkable } from "remarkable";
-import hljs from "highlight.js";
-// import toc from "markdown-toc";
+import toc from "markdown-toc";
 
 /**
  * @type {Object}
@@ -11,6 +10,17 @@ import hljs from "highlight.js";
 const settings = {
   readmeFilename: "README",
   templatesFolder: path.resolve("./../templates/partials/"),
+  md: {
+    headings: {
+      toc: "Table of Contents",
+      installation: "Installation",
+      usage: "Usage/Examples",
+      license: "License",
+      contributing: "Contributing",
+      tests: "Running Tests",
+      questions: "FAQs",
+    },
+  },
 };
 
 /**
@@ -76,12 +86,12 @@ function writeToFile(fileName, data) {}
  *
  * @param {string} section
  *    The section id.
- * @param {string} content
+ * @param {string|null} content
  *    The content to render.
  * @returns {string}
  *    The rendered markdown.
  */
-async function renderMarkdownTemplate(section, content) {
+async function renderMarkdownTemplate(section, content = null) {
   let markdown = "";
 
   const templateId = section.toUpperCase();
@@ -103,8 +113,16 @@ async function renderMarkdownTemplate(section, content) {
 
   let template = await fs.readFile(filePath, { encoding: "utf8" });
 
-  if (content) {
-    markdown += template.replace(`<!-- ${section} -->`, content);
+  // Add content in the markdown section token.
+  const token = `<!-- ${section} -->`;
+  if (section === "toc") {
+    // Generates the markdown toc.
+    const tocMdContent = toc(content).content;
+    markdown += template.replace(token, tocMdContent);
+  } else if (content) {
+    markdown += template.replace(token, content);
+  } else {
+    markdown = template;
   }
 
   return markdown;
@@ -124,23 +142,68 @@ function parseMarkdown(markdown) {
   return html;
 }
 
-// function to generate markdown for README
+/**
+ * Generates the table of contents, given the sections.
+ *
+ * @param {Array} sections
+ *    The section ids.
+ * @returns {Array}
+ *    The toc in markdown and parsed HTML.
+ */
+async function generateMdToc(sections) {
+  let markdown = "";
+  let html = "";
+  let tocMd = "";
+
+  const headings = sections
+    .filter((head) => head !== "description")
+    .reduce((tocMd, heading, index) => {
+      heading = settings.md.headings[heading] || heading;
+      tocMd += index === 0 ? `# ${heading}` : `\n## ${heading}`;
+      return tocMd;
+    }, tocMd);
+
+  markdown = await renderMarkdownTemplate("toc", headings);
+  html = parseMarkdown(markdown);
+
+  return [markdown, html];
+}
+
+/**
+ * function to generate markdown for README.
+ *
+ * @param {Object} data
+ *    The README object.
+ * @returns {Array}
+ *    The markdown and parsed HTML.
+ */
 async function generateMarkdown(data) {
   let markdown = "";
   let html = "";
-
-  // Render header
-  markdown = await renderMarkdownTemplate("header", null);
 
   // Render document sections.
   for (const section in data) {
     if (Object.hasOwnProperty.call(data, section)) {
       const content = data[section];
+
+      // Generate ToC.
+      if (section === "toc") {
+        const [tocMarkdown, tocHtml] = await generateMdToc(Object.keys(data));
+        markdown += tocMarkdown;
+        html += tocHtml;
+        continue;
+      }
+
       markdown += await renderMarkdownTemplate(section, content);
+      html += parseMarkdown(markdown);
     }
   }
 
-  html = parseMarkdown(markdown);
+  // Prepend the header.
+  const header = await renderMarkdownTemplate("header", null);
+
+  markdown = header + markdown;
+  html = header + html;
 
   return [markdown, html];
 }

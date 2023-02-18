@@ -36,17 +36,17 @@ const sectionsQuestions = [
     type: "rawlist",
     message: "Choose a section or select [Next] to continue:",
     choices: [...sectionsChoices, "next"],
-    // transformer(input) {
-    //   if (input === "next") {
-    //     input += " ->";
-    //   } else if (input === "toc") {
-    //     return "Table of Contents";
-    //   } else if (input === "questions") {
-    //     return "FAQs";
-    //   }
-    //   input[0].toUpperCase();
-    //   return input;
-    // },
+    transformer(input) {
+      if (input === "next") {
+        input += " ->";
+      } else if (input === "toc") {
+        return "Table of Contents";
+      } else if (input === "questions") {
+        return "FAQs";
+      }
+      input[0].toUpperCase();
+      return input;
+    },
   },
 ];
 
@@ -233,8 +233,18 @@ async function init() {
     let readme = {};
     for (let i = 0; i < sections.length; i++) {
       const section = sections[i];
-      readme = await inquirer.prompt(readmeQuestions[section]);
+
+      // ToC does not require questions,
+      // only marked that need to be generated.
+      if (section === "toc") {
+        readme[section] = true;
+        continue;
+      }
+
+      const answers = await inquirer.prompt(readmeQuestions[section]);
+      readme = { ...readme, ...answers };
     }
+
     const [markdown, html] = await generateMarkdown(readme);
 
     console.log(markdown, html);
