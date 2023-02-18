@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.3.1"
+    "inquirer": "^6.3.1",
+    "markdown-toc": "^1.2.0",
+    "remarkable": "^2.0.1"
   }
 }
