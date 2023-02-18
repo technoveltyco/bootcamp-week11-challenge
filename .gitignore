@@ -105,3 +105,4 @@ dist
 
 # Additional folders
 .DS_Store/
+.vscode/
