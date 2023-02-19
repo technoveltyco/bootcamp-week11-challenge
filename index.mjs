@@ -1,6 +1,7 @@
 import fs from "fs/promises";
+import * as fsSync from "fs";
 import path from "path";
-import zlib from "zlib";
+import archiver from "archiver";
 import inquirer from "inquirer";
 import { setSettings, generateMarkdown } from "./utils/generateMarkdown.mjs";
 
@@ -211,12 +212,50 @@ function askSections(questions) {
  * @param {string} fileName
  *    The filename.
  * @param {Array} data
- *    The data to compress.
- * @return {boolean}
+ *    The files to compress.
+ * @return {boolean|Error}
  *    The flag of the file generation result.
  */
-function writeToFile(fileName, data) {
-  return true;
+async function writeToFile(fileName, data) {
+  const timestamp = Date.now();
+  const folderPath = path.resolve("./.downloads/");
+  const compressFilePath = `${folderPath}/${timestamp}-${fileName}.zip`;
+  const output = fsSync.createWriteStream(compressFilePath);
+  const archive = archiver("zip", {
+    zlib: { level: 9 },
+  });
+
+  // Event handlers.
+  output.on("close", function () {
+    console.log(`${archive.pointer()} total bytes`);
+  });
+  output.on("end", function () {
+    console.log("Data has been drained");
+  });
+  archive.on("error", (err) => {
+    throw err;
+  });
+  archive.on("warning", function (err) {
+    if (err.code === "ENOENT") {
+      console.warn(err);
+    } else {
+      throw err;
+    }
+  });
+
+  // write data to output file.
+  archive.pipe(output);
+
+  // append files.
+  const [mdFilePath, htmlFilePath] = data;
+  archive.append(fsSync.createReadStream(mdFilePath), { name: `README.md` });
+  archive.append(fsSync.createReadStream(htmlFilePath), {
+    name: `README.html`,
+  });
+
+  await archive.finalize();
+
+  return compressFilePath;
 }
 
 /**
@@ -245,11 +284,14 @@ async function init() {
       readme = { ...readme, ...answers };
     }
 
-    const [markdown, html] = await generateMarkdown(readme);
+    const [mdFilePath, htmlFilePath] = await generateMarkdown(readme);
+    const compressFilePath = await writeToFile("README", [
+      mdFilePath,
+      htmlFilePath,
+    ]);
 
-    console.log(markdown, html);
-
-    generated = writeToFile("README", [markdown, html]);
+    console.log(`Your README is ready at "${compressFilePath}"`);
+    generated = true;
   } catch (error) {
     console.error(error);
     generated = false;
