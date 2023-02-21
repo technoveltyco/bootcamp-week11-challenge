@@ -27,6 +27,17 @@ const sectionsChoices = [
   "questions",
 ];
 
+const licensesChoices = [
+  "Apache License 2.0",
+  "Boost Software License 1.0",
+  "GNU AGPLv3",
+  "GNU GPLv3",
+  "GNU LGPLv3",
+  "Mozilla Public License 2.0",
+  "MIT License",
+  "The Unlicense",
+];
+
 /**
  * @type {[Object]}
  *    The sections question.
@@ -106,16 +117,7 @@ const readmeQuestions = {
       What license do you want to choose for your project?
       (Please see https://choosealicense.com/licenses/ for further info)
       `,
-      choices: [
-        "Apache License 2.0",
-        "Boost Software License 1.0",
-        "GNU AGPLv3",
-        "GNU GPLv3",
-        "GNU LGPLv3",
-        "Mozilla Public License 2.0",
-        "MIT License",
-        "The Unlicense",
-      ],
+      choices: licensesChoices,
     },
   ],
   contributing: [
@@ -290,7 +292,9 @@ async function init() {
       htmlFilePath,
     ]);
 
-    console.log(`Your README is ready at "${compressFilePath}"`);
+    console.log(
+      `Thanks for using our tool!. Your README is ready at "${compressFilePath}"`
+    );
     generated = true;
   } catch (error) {
     console.error(error);
@@ -336,6 +340,7 @@ const settings = {
     // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
     quotes: "“”‘’",
   },
+  licences: licensesChoices,
 };
 setSettings(settings);
 
