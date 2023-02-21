@@ -1,4 +1,4 @@
 
-## Running Tests
+## Tests
 
 <!-- tests -->

@@ -8,6 +8,8 @@
 
 # <!-- title -->
 
+## Description
+
 <!-- description -->
 
 ## Table of Contents
@@ -18,7 +20,7 @@
 
 <!-- installation -->
     
-## Usage/Examples
+## Usage
 
 <!-- usage -->
 
@@ -30,7 +32,7 @@
 
 <!-- contributing -->
 
-## Running Tests
+## Tests
 
 <!-- tests -->
 

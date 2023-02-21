@@ -1,4 +1,4 @@
 
-## Usage/Examples
+## Usage
 
 <!-- usage -->
