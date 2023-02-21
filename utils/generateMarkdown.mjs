@@ -23,6 +23,16 @@ const settings = {
       tests: "Tests",
       questions: "Questions",
     },
+    licences: [
+      "Apache License 2.0",
+      "Boost Software License 1.0",
+      "GNU AGPLv3",
+      "GNU GPLv3",
+      "GNU LGPLv3",
+      "Mozilla Public License 2.0",
+      "MIT License",
+      "The Unlicense",
+    ],
   },
 };
 
@@ -74,6 +84,52 @@ function setSettings({ generator, parser }) {
   md.set(parserSettings);
 }
 
+function parseSectionContent(section, content) {
+  let formatted = content;
+  if (section === "license") {
+    const key = settings.md.licences.indexOf(content);
+    switch (key) {
+      // "Apache License 2.0"
+      case 0:
+        formatted = `[${content}](https://choosealicense.com/licenses/apache-2.0/)`;
+        break;
+      // "Boost Software License 1.0",
+      case 1:
+        formatted = `[${content}](https://choosealicense.com/licenses/bsl-1.0/)`;
+        break;
+      // "GNU AGPLv3",
+      case 2:
+        formatted = `[${content}](https://choosealicense.com/licenses/agpl-3.0/)`;
+        break;
+      // "GNU GPLv3",
+      case 3:
+        formatted = `[${content}](https://choosealicense.com/licenses/gpl-3.0/)`;
+        break;
+      // "GNU LGPLv3",
+      case 4:
+        formatted = `[${content}](https://choosealicense.com/licenses/lgpl-3.0/)`;
+        break;
+      // "Mozilla Public License 2.0",
+      case 5:
+        formatted = `[${content}](https://choosealicense.com/licenses/mpl-2.0/)`;
+        break;
+      // "MIT License",
+      case 6:
+        formatted = `[${content}](https://choosealicense.com/licenses/mit/)`;
+        break;
+      // "The Unlicense",
+      case 7:
+        formatted = `[${content}](https://choosealicense.com/licenses/unlicense/)`;
+        break;
+      default:
+        formatted = content;
+        break;
+    }
+  }
+
+  return formatted;
+}
+
 /**
  * Gets the markdown template and render the given content.
  *
@@ -113,7 +169,8 @@ async function renderMarkdownTemplate(section, content = null) {
     const tocMdContent = toc(content).content;
     markdown += template.replace(token, tocMdContent);
   } else if (content) {
-    markdown += template.replace(token, content);
+    const formattedContent = parseSectionContent(section, content);
+    markdown += template.replace(token, formattedContent);
   } else {
     markdown = template;
   }
