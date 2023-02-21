@@ -17,30 +17,39 @@ The repository of the boot camp week 11 challenge
   - [Author](#author)
   - [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
+
+When creating an open source project on GitHub, it’s important to have a high-quality README for the app. This should include what the app is for, how to use the app, how to install it, how to report issues, and how to make contributions—this last part increases the likelihood that other developers will contribute to the success of the project. 
+
+You can quickly and easily create a README file by using a command-line application to generate one. This allows the project creator to devote more time to working on the project.
+
 
 ### The challenge
 
-Describe the challenge here
+Your task is to create a command-line application that dynamically generates a professional README.md file from a user's input using the [Inquirer package](https://www.npmjs.com/package/inquirer). Review the [Good README Guide](../../01-HTML-Git-CSS/04-Important/Good-README-Guide/README.md) as a reminder of everything that a high-quality, professional README should contain. 
+
+The application will be invoked by using the following command:
+
+```bash
+node index.js
+```
 
 ### Screenshot
 
-![](./screenshot.jpg)
+[![Landing page](./docs/assets/img/Screenshot%202023-02-21%20at%2013-28-36%20Landing%20page%20README%20Generator.png)](https://technoveltyco.github.io/bootcamp-week11-challenge/)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+<video controls width="550">
+  <source
+    src="./docs/assets/media/walkthrough-readme-generator.mp4"
+    type="video/mp4"
+  />
+  README Generator walkthrough video.
+</video>
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/technoveltyco/bootcamp-week11-challenge](https://github.com/technoveltyco/bootcamp-week11-challenge)
+- Live Site URL: [https://technoveltyco.github.io/bootcamp-week11-challenge/](https://technoveltyco.github.io/bootcamp-week11-challenge/)
 
 ## My process
 
@@ -96,14 +105,9 @@ Use this section to outline areas that you want to continue focusing on in futur
 - Node.js
   - [CommonJS vs. ES modules in Node.js](https://blog.logrocket.com/commonjs-vs-es-modules-node-js/)
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
-
 ## Author
-  Your Name
-- Website - [your name or website url](https://www.your-site.com)
-- GitHub - [your GitHub username](https://github.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+  Daniel Rodriguez
+- GitHub - [Technovelty](https://github.com/technoveltyco)
 
 ## Acknowledgments
 
