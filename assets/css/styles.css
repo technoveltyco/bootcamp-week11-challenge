@@ -1,0 +1,359 @@
+/***
+ * Theme for README Generator.
+ *
+ * The theme use the Atomic CSS methodology, 
+ * and define color scheme with shade variants.
+ *
+ * Author: Technovelty (https://github.com/technoveltyco)
+ * License: MIT
+ ***/
+:root {
+  /**
+   * color scheme
+   * in HSL, only one value changes
+   * in RGB this is more complex.
+   */
+  --color-1: hsl(0, 0%, 0%); /* rgb(0, 0, 0); */
+  --color-2: hsl(233, 18%, 19%); /* rgb(40, 42, 58); */
+  --color-3: hsl(42, 39%, 32%); /* rgb(115, 95, 50); */
+  --color-4: hsl(37, 52%, 53%); /* rgb(198, 151, 73); */
+  --border: 0.1rem silver solid;
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-variant: small-caps;
+  --font-size: 1.5rem;
+  --font: var(--font-variant) var(--font-size) / 1.5 var(--font-family);
+  --text-color-1: #f5f5f5; /* white smoke */
+  --text-color-2: #faebd7; /* antique white */
+  --link-decoration: underline;
+  --m-x-1: 1rem;
+  --m-x-2: 2rem;
+  --m-y-1: 1rem;
+  --m-y-2: 2rem;
+  --p-x-1: 1rem;
+  --p-x-2: 2rem;
+  --p-y-1: 1rem;
+  --p-y-2: 2rem;
+}
+
+/* color shades variants */
+[data-theme=color-1] {
+  --shade-1: hsl(0, 0%, 10%);
+  --shade-2: hsl(0, 0%, 15%);
+  --shade-3: hsl(0, 0%, 20%);
+  --shade-4: hsl(0, 0%, 25%);
+  --shade-5: hsl(0, 0%, 30%);
+  --shade-6: hsl(0, 0%, 35%);
+}
+
+[data-theme=color-2] {
+  --shade-1: hsl(233, 18%, 24%);
+  --shade-2: hsl(233, 18%, 29%);
+  --shade-3: hsl(233, 18%, 34%);
+  --shade-4: hsl(233, 18%, 39%);
+  --shade-5: hsl(233, 18%, 44%);
+  --shade-6: hsl(233, 18%, 49%);
+}
+
+[data-theme=color-3] {
+  --shade-1: hsl(42, 39%, 37%);
+  --shade-2: hsl(42, 39%, 42%);
+  --shade-3: hsl(42, 39%, 47%);
+  --shade-4: hsl(42, 39%, 52%);
+  --shade-5: hsl(42, 39%, 57%);
+  --shade-6: hsl(42, 39%, 62%);
+}
+
+[data-theme=color-4] {
+  --shade-1: hsl(37, 52%, 58%);
+  --shade-2: hsl(37, 52%, 63%);
+  --shade-3: hsl(37, 52%, 68%);
+  --shade-4: hsl(37, 52%, 73%);
+  --shade-5: hsl(37, 52%, 78%);
+  --shade-6: hsl(37, 52%, 83%);
+}
+
+/* base bg colors */
+.bg-1, .landing-page__header--theme-bg-1, .landing-page__footer--theme-bg-1,
+.editor-page__header--theme-bg-1,
+.editor-page__footer--theme-bg-1,
+.docs-page__header--theme-bg-1,
+.docs-page__footer--theme-bg-1 {
+  background-color: var(--color-1);
+}
+
+.bg-2, .landing-page--theme-bg-2,
+.editor-page--theme-bg-2,
+.docs-page--theme-bg-2, .landing-page__content--theme-bg-2,
+.editor-page__content--theme-bg-2,
+.docs-page__content--theme-bg-2 {
+  background-color: var(--color-2);
+}
+
+.bg-3, .landing-page .content__container .hero__nav-actions .nav-actions__cta--theme-btn-secondary,
+.editor-page .content__container .hero__nav-actions .nav-actions__cta--theme-btn-secondary,
+.docs-page .content__container .hero__nav-actions .nav-actions__cta--theme-btn-secondary {
+  background-color: var(--color-3);
+}
+
+.bg-4, .landing-page .content__container .hero__nav-actions .nav-actions__cta--theme-btn-primary,
+.editor-page .content__container .hero__nav-actions .nav-actions__cta--theme-btn-primary,
+.docs-page .content__container .hero__nav-actions .nav-actions__cta--theme-btn-primary {
+  background-color: var(--color-4);
+}
+
+/* base bg shade variants */
+.bg-n-s1 {
+  background-color: var(--shade-1);
+}
+
+.bg-n-s2 {
+  background-color: var(--shade-2);
+}
+
+.bg-n-s3 {
+  background-color: var(--shade-3);
+}
+
+.bg-n-s4 {
+  background-color: var(--shade-4);
+}
+
+.bg-n-s5 {
+  background-color: var(--shade-5);
+}
+
+.bg-n-s6 {
+  background-color: var(--shade-6);
+}
+
+.text-1, .landing-page,
+.editor-page,
+.docs-page {
+  color: var(--text-color-1);
+}
+
+.text-1-highlight {
+  color: var(--text-color-2);
+}
+
+.link-1, a,
+a:visited {
+  color: var(--text-color-1);
+}
+
+.link-1-highlight, a:hover,
+a:focus, .landing-page a.header__logo--theme-link,
+.editor-page a.header__logo--theme-link,
+.docs-page a.header__logo--theme-link, .landing-page a.header__logo--theme-link:hover, .landing-page a.header__logo--theme-link:focus,
+.editor-page a.header__logo--theme-link:hover,
+.editor-page a.header__logo--theme-link:focus,
+.docs-page a.header__logo--theme-link:hover,
+.docs-page a.header__logo--theme-link:focus {
+  color: var(--text-color-2);
+}
+
+.link-1, a,
+a:visited,
+.link-1-highlight,
+a:hover,
+a:focus,
+.landing-page a.header__logo--theme-link,
+.editor-page a.header__logo--theme-link,
+.docs-page a.header__logo--theme-link,
+.landing-page a.header__logo--theme-link:hover,
+.landing-page a.header__logo--theme-link:focus,
+.editor-page a.header__logo--theme-link:hover,
+.editor-page a.header__logo--theme-link:focus,
+.docs-page a.header__logo--theme-link:hover,
+.docs-page a.header__logo--theme-link:focus {
+  text-decoration: underline;
+}
+
+.link-2 {
+  color: var(--color-4);
+}
+
+.link-2-highlight {
+  color: var(--color-3);
+}
+
+.container, .landing-page .header__container,
+.editor-page .header__container,
+.docs-page .header__container, .landing-page .content__container,
+.editor-page .content__container,
+.docs-page .content__container, .landing-page .footer__container,
+.editor-page .footer__container,
+.docs-page .footer__container {
+  max-width: 100vw;
+  padding: var(--p-y-2) var(--p-x-2);
+}
+
+/***
+ * Styles for README Generator.
+ *
+ * This stylesheet use the BEM CSS Methodology.
+ *
+ * Author: Technovelty (https://github.com/technoveltyco)
+ * License: MIT
+ ***/
+/* basic styling */
+body {
+  font: var(--font);
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: left;
+  justify-content: start;
+}
+
+a,
+a:hover,
+a:focus,
+a:visited {
+  text-decoration: underline;
+}
+
+/** pages **/
+.landing-page__content,
+.editor-page__content,
+.docs-page__content {
+  justify-content: space-around;
+}
+.landing-page a.header__logo--theme-link, .landing-page a.header__logo--theme-link:hover, .landing-page a.header__logo--theme-link:focus,
+.editor-page a.header__logo--theme-link,
+.editor-page a.header__logo--theme-link:hover,
+.editor-page a.header__logo--theme-link:focus,
+.docs-page a.header__logo--theme-link,
+.docs-page a.header__logo--theme-link:hover,
+.docs-page a.header__logo--theme-link:focus {
+  text-decoration: none;
+  text-shadow: 0 0 3px var(--shade-2), 0 0 5px var(--shade-4);
+}
+.landing-page .header__container, .landing-page .footer__container, .landing-page .content__container,
+.editor-page .header__container,
+.editor-page .footer__container,
+.editor-page .content__container,
+.docs-page .header__container,
+.docs-page .footer__container,
+.docs-page .content__container {
+  justify-content: space-between;
+  display: flex;
+  padding-top: var(--p-y-1);
+  padding-bottom: var(--p-y-1);
+}
+.landing-page .content__container,
+.editor-page .content__container,
+.docs-page .content__container {
+  align-items: center;
+  text-align: center;
+}
+.landing-page .content__container .hero,
+.landing-page .content__container .walkthrough,
+.editor-page .content__container .hero,
+.editor-page .content__container .walkthrough,
+.docs-page .content__container .hero,
+.docs-page .content__container .walkthrough {
+  margin: 0 5rem;
+}
+.landing-page .content__container .hero,
+.editor-page .content__container .hero,
+.docs-page .content__container .hero {
+  max-width: 630px;
+}
+.landing-page .content__container .hero__headline,
+.editor-page .content__container .hero__headline,
+.docs-page .content__container .hero__headline {
+  font-size: 3rem;
+}
+.landing-page .content__container .hero__headline--highlight, .landing-page .content__container .hero__support-copy--highlight,
+.editor-page .content__container .hero__headline--highlight,
+.editor-page .content__container .hero__support-copy--highlight,
+.docs-page .content__container .hero__headline--highlight,
+.docs-page .content__container .hero__support-copy--highlight {
+  color: var(--shade-2);
+  font-weight: 700;
+  text-shadow: 2px 2px var(--color-3);
+}
+.landing-page .content__container .hero__support-copy--highlight,
+.editor-page .content__container .hero__support-copy--highlight,
+.docs-page .content__container .hero__support-copy--highlight {
+  font-style: italic;
+}
+.landing-page .content__container .hero__nav-actions,
+.editor-page .content__container .hero__nav-actions,
+.docs-page .content__container .hero__nav-actions {
+  margin: 25px;
+}
+.landing-page .content__container .hero__nav-actions .nav-actions__cta,
+.editor-page .content__container .hero__nav-actions .nav-actions__cta,
+.docs-page .content__container .hero__nav-actions .nav-actions__cta {
+  margin: 0 25px;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.landing-page .footer__container,
+.editor-page .footer__container,
+.docs-page .footer__container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: var(--p-y-1);
+  padding-bottom: var(--p-y-1);
+}
+.landing-page .footer__navbar,
+.editor-page .footer__navbar,
+.docs-page .footer__navbar {
+  margin: 25px;
+}
+.landing-page .footer__navbar--theme-link:hover,
+.editor-page .footer__navbar--theme-link:hover,
+.docs-page .footer__navbar--theme-link:hover {
+  color: var(--text-color-1);
+}
+.landing-page .footer__navbar .navbar__item--theme-link,
+.editor-page .footer__navbar .navbar__item--theme-link,
+.docs-page .footer__navbar .navbar__item--theme-link {
+  padding: 15px;
+}
+.landing-page .footer__navbar .navbar__item--theme-link img,
+.editor-page .footer__navbar .navbar__item--theme-link img,
+.docs-page .footer__navbar .navbar__item--theme-link img {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+/** Docs page **/
+.docs-page table {
+  min-height: 100%;
+  border: var(--border);
+  border-collapse: collapse;
+}
+.docs-page td[class^=bg-] {
+  font: 1.2rem var(--monospace-font);
+  text-align: center;
+  vertical-align: middle;
+  min-width: 11rem;
+  height: 6rem;
+}
+.docs-page caption {
+  text-align: left;
+  padding: 1rem;
+}
+.docs-page .theme-colors {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.editor-page__content .content__container,
+.docs-page__content .content__container {
+  display: block;
+}
+
+/** small screens **/
+
+/*# sourceMappingURL=styles.css.map */

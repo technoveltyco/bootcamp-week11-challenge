@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../assets/css/reset.css" />
+    <!-- xtermjs -->
+    <!-- <link rel="stylesheet" href="../node_modules/xterm/css/xterm.css" />
+    <script src="../node_modules/xterm/lib/xterm.js"></script> -->
+    <!-- end xtermjs -->
+    <!-- custom styles -->
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <!-- end custom styles -->
+
+    <title>Editor | README Generator</title>
+  </head>
+  <body>
+    <header class="editor-page__header editor-page__header--theme-bg-1">
+      <div class="header__container">
+        <div class="header__logo">
+          <a class="header__logo--theme-link" data-theme="color-4" href="./"
+            >README Generator</a
+          >
+        </div>
+        <nav class="header__navbar header__navbar--primary">
+          <a class="navbar__item--theme-link" href="../">Home</a>
+          <a class="navbar__item--theme-link" href="./">Editor</a>
+          <a class="navbar__item--theme-link" href="../docs">Docs</a>
+        </nav>
+      </div>
+    </header>
+    <main class="editor-page__content editor-page__content--theme-bg-2">
+      <div class="content__container">
+        <div id="terminal"></div>
+        <script>
+          let term = new Terminal();
+          term.open(document.getElementById("terminal"));
+          term.write("Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ");
+        </script>
+      </div>
+    </main>
+    <footer class="editor-page__footer editor-page__footer--theme-bg-1">
+      <div class="footer__container">
+        <p class="footer__copyright">
+          Made with <span aria-label="love">❤️</span> by
+          <a
+            class="copyright__author copyright__author--theme-link"
+            href="https://github.com/technoveltyco"
+            >Technoveltyco</a
+          >
+        </p>
+        <nav class="footer__navbar">
+          <a
+            class="navbar__item--theme-link"
+            href="https://github.com/technoveltyco/bootcamp-week11-challenge"
+            ><img
+              src="../assets/img/ICPGithubIconWhite.svg"
+              alt="GitHub logo"
+            />GitHub Repo</a
+          >
+          <a
+            class="navbar__item--theme-link"
+            href="https://github.com/users/technoveltyco/projects/5"
+            >KANBAN Dashboard</a
+          >
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

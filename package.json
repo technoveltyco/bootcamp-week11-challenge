@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "sass-dev": "sass --watch --update --style=expanded assets/scss:assets/css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,6 +13,11 @@
     "archiver": "^5.3.1",
     "inquirer": "^6.3.1",
     "markdown-toc": "^1.2.0",
-    "remarkable": "^2.0.1"
+    "mermaid": "^9.4.0",
+    "remarkable": "^2.0.1",
+    "the-new-css-reset": "^1.8.4"
+  },
+  "devDependencies": {
+    "sass": "^1.58.3"
   }
 }

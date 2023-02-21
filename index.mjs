@@ -74,7 +74,7 @@ const readmeQuestions = {
     {
       type: "editor",
       name: "description",
-      message: `Please write a short description for your project. 
+      message: `Please write a short description for your project.
 (Enter at least 1 line of 80 characters)`,
       validate: inquirerValidate,
       waitUserInput: true,
@@ -103,7 +103,7 @@ const readmeQuestions = {
       type: "rawlist",
       name: "license",
       message: `
-      What license do you want to choose for your project? 
+      What license do you want to choose for your project?
       (Please see https://choosealicense.com/licenses/ for further info)
       `,
       choices: [
