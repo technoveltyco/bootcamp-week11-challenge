@@ -1,0 +1,151 @@
+/***
+ * Theme for README Generator.
+ *
+ * The theme use the Atomic CSS methodology, 
+ * and define color scheme with shade variants.
+ *
+ * Author: Technovelty (https://github.com/technoveltyco)
+ * License: MIT
+ ***/
+:root {
+  /**
+   * color scheme
+   * in HSL, only one value changes
+   * in RGB this is more complex.
+   */
+  --color-1: hsl(0, 0%, 0%); /* rgb(0, 0, 0); */
+  --color-2: hsl(233, 18%, 19%); /* rgb(40, 42, 58); */
+  --color-3: hsl(42, 39%, 32%); /* rgb(115, 95, 50); */
+  --color-4: hsl(37, 52%, 53%); /* rgb(198, 151, 73); */
+  --border: 0.1rem silver solid;
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-variant: small-caps;
+  --font-size: 1.5rem;
+  --font: var(--font-variant) var(--font-size) / 1.5 var(--font-family);
+  --text-color-1: #f5f5f5; /* white smoke */
+  --text-color-2: #faebd7; /* antique white */
+  --link-decoration: underline;
+  --m-x-1: 1rem;
+  --m-x-2: 2rem;
+  --m-y-1: 1rem;
+  --m-y-2: 2rem;
+  --p-x-1: 1rem;
+  --p-x-2: 2rem;
+  --p-y-1: 1rem;
+  --p-y-2: 2rem;
+}
+
+/* color shades variants */
+[data-theme=color-1] {
+  --shade-1: hsl(0, 0%, 10%);
+  --shade-2: hsl(0, 0%, 15%);
+  --shade-3: hsl(0, 0%, 20%);
+  --shade-4: hsl(0, 0%, 25%);
+  --shade-5: hsl(0, 0%, 30%);
+  --shade-6: hsl(0, 0%, 35%);
+}
+
+[data-theme=color-2] {
+  --shade-1: hsl(233, 18%, 24%);
+  --shade-2: hsl(233, 18%, 29%);
+  --shade-3: hsl(233, 18%, 34%);
+  --shade-4: hsl(233, 18%, 39%);
+  --shade-5: hsl(233, 18%, 44%);
+  --shade-6: hsl(233, 18%, 49%);
+}
+
+[data-theme=color-3] {
+  --shade-1: hsl(42, 39%, 37%);
+  --shade-2: hsl(42, 39%, 42%);
+  --shade-3: hsl(42, 39%, 47%);
+  --shade-4: hsl(42, 39%, 52%);
+  --shade-5: hsl(42, 39%, 57%);
+  --shade-6: hsl(42, 39%, 62%);
+}
+
+[data-theme=color-4] {
+  --shade-1: hsl(37, 52%, 58%);
+  --shade-2: hsl(37, 52%, 63%);
+  --shade-3: hsl(37, 52%, 68%);
+  --shade-4: hsl(37, 52%, 73%);
+  --shade-5: hsl(37, 52%, 78%);
+  --shade-6: hsl(37, 52%, 83%);
+}
+
+/* base bg colors */
+.bg-1 {
+  background-color: var(--color-1);
+}
+
+.bg-2 {
+  background-color: var(--color-2);
+}
+
+.bg-3 {
+  background-color: var(--color-3);
+}
+
+.bg-4 {
+  background-color: var(--color-4);
+}
+
+/* base bg shade variants */
+.bg-n-s1 {
+  background-color: var(--shade-1);
+}
+
+.bg-n-s2 {
+  background-color: var(--shade-2);
+}
+
+.bg-n-s3 {
+  background-color: var(--shade-3);
+}
+
+.bg-n-s4 {
+  background-color: var(--shade-4);
+}
+
+.bg-n-s5 {
+  background-color: var(--shade-5);
+}
+
+.bg-n-s6 {
+  background-color: var(--shade-6);
+}
+
+.text-1 {
+  color: var(--text-color-1);
+}
+
+.text-1-highlight {
+  color: var(--text-color-2);
+}
+
+.link-1 {
+  color: var(--text-color-1);
+}
+
+.link-1-highlight {
+  color: var(--text-color-2);
+}
+
+.link-1,
+.link-1-highlight {
+  text-decoration: underline;
+}
+
+.link-2 {
+  color: var(--color-4);
+}
+
+.link-2-highlight {
+  color: var(--color-3);
+}
+
+.container {
+  max-width: 100vw;
+  padding: var(--p-y-2) var(--p-x-2);
+}
+
+/*# sourceMappingURL=theme.css.map */

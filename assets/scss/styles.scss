@@ -1,0 +1,198 @@
+@use "theme.css";
+
+/***
+ * Styles for README Generator.
+ *
+ * This stylesheet use the BEM CSS Methodology.
+ *
+ * Author: Technovelty (https://github.com/technoveltyco)
+ * License: MIT
+ ***/
+
+/* basic styling */
+
+body {
+  font: var(--font);
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: left;
+  justify-content: start;
+}
+
+a,
+a:hover,
+a:focus,
+a:visited {
+  text-decoration: underline;
+}
+
+a,
+a:visited {
+  @extend .link-1;
+}
+
+a:hover,
+a:focus {
+  @extend .link-1-highlight;
+}
+
+/** pages **/
+.landing-page,
+.editor-page,
+.docs-page {
+  @extend .text-1;
+  &__content {
+    justify-content: space-around;
+  }
+  &--theme-bg-2 {
+    @extend .bg-2;
+  }
+  &__header,
+  &__footer {
+    &--theme-bg-1 {
+      @extend .bg-1;
+    }
+  }
+  &__content {
+    &--theme-bg-2 {
+      @extend .bg-2;
+    }
+  }
+
+  a {
+    &.header__logo {
+      &--theme-link {
+        @extend .link-1-highlight;
+        text-decoration: none;
+        text-shadow: 0 0 3px var(--shade-2), 0 0 5px var(--shade-4);
+        &:hover,
+        &:focus {
+          @extend .header__logo--theme-link;
+          @extend .link-1-highlight;
+        }
+      }
+    }
+  }
+
+  .header {
+    &__container {
+      justify-content: space-between;
+      @extend .container;
+      display: flex;
+      padding-top: var(--p-y-1);
+      padding-bottom: var(--p-y-1);
+    }
+  }
+
+  .content {
+    &__container {
+      @extend .header__container;
+      align-items: center;
+      text-align: center;
+      .hero,
+      .walkthrough {
+        margin: 0 5rem;
+      }
+      .hero {
+        max-width: 630px;
+        &__headline {
+          font-size: 3rem;
+          &--highlight {
+            color: var(--shade-2);
+            font-weight: 700;
+            text-shadow: 2px 2px var(--color-3);
+          }
+        }
+        &__support-copy--highlight {
+          @extend .hero__headline--highlight;
+          font-style: italic;
+        }
+        &__nav-actions {
+          margin: 25px;
+          .nav-actions__cta {
+            margin: 0 25px;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            &--theme-btn-primary {
+              @extend .bg-4;
+            }
+            &--theme-btn-secondary {
+              @extend .bg-3;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    &__container {
+      @extend .header__container;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-top: var(--p-y-1);
+      padding-bottom: var(--p-y-1);
+    }
+    &__navbar {
+      margin: 25px;
+      &--theme-link {
+        &:hover {
+          color: var(--text-color-1);
+        }
+      }
+      .navbar__item--theme-link {
+        padding: 15px;
+        img {
+          display: inline-block;
+          padding: 0 5px;
+        }
+      }
+    }
+  }
+}
+
+/** Docs page **/
+
+.docs-page {
+  table {
+    min-height: 100%;
+    border: var(--border);
+    border-collapse: collapse;
+  }
+
+  td[class^="bg-"] {
+    font: 1.2rem var(--monospace-font);
+    text-align: center;
+    vertical-align: middle;
+    min-width: 11rem;
+    height: 6rem;
+  }
+
+  caption {
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .theme-colors {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+
+.editor-page,
+.docs-page {
+  &__content {
+    .content__container {
+      display: block;
+    }
+  }
+}
+
+/** small screens **/
