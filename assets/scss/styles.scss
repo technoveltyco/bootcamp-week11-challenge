@@ -89,6 +89,8 @@ a:focus {
 
   .content {
     &__container {
+      margin-top: 0;
+      padding-top: 0;
       @extend .header__container;
       align-items: center;
       text-align: center;
@@ -98,6 +100,10 @@ a:focus {
       }
       .hero {
         max-width: 630px;
+        &__headline,
+        &__support-copy {
+          margin: 25px;
+        }
         &__headline {
           font-size: 3rem;
           &--highlight {
@@ -111,9 +117,9 @@ a:focus {
           font-style: italic;
         }
         &__nav-actions {
-          margin: 25px;
+          margin: 10px;
           .nav-actions__cta {
-            margin: 0 25px;
+            margin: 10px;
             padding: 14px 25px;
             text-align: center;
             text-decoration: none;
@@ -125,6 +131,11 @@ a:focus {
               @extend .bg-3;
             }
           }
+        }
+      }
+      .walkthrough {
+        &__video {
+          max-width: 550px;
         }
       }
     }
@@ -196,3 +207,17 @@ a:focus {
 }
 
 /** small screens **/
+
+@media (width <= 1023px) {
+  .content {
+    &__container {
+      flex-direction: column;
+      .walkthrough {
+        margin: 25px !important;
+        &__video {
+          max-width: 90vw !important;
+        }
+      }
+    }
+  }
+}
