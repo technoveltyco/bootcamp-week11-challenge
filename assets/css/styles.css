@@ -246,6 +246,8 @@ a:visited {
 .landing-page .content__container,
 .editor-page .content__container,
 .docs-page .content__container {
+  margin-top: 0;
+  padding-top: 0;
   align-items: center;
   text-align: center;
 }
@@ -261,6 +263,13 @@ a:visited {
 .editor-page .content__container .hero,
 .docs-page .content__container .hero {
   max-width: 630px;
+}
+.landing-page .content__container .hero__headline, .landing-page .content__container .hero__support-copy,
+.editor-page .content__container .hero__headline,
+.editor-page .content__container .hero__support-copy,
+.docs-page .content__container .hero__headline,
+.docs-page .content__container .hero__support-copy {
+  margin: 25px;
 }
 .landing-page .content__container .hero__headline,
 .editor-page .content__container .hero__headline,
@@ -284,16 +293,21 @@ a:visited {
 .landing-page .content__container .hero__nav-actions,
 .editor-page .content__container .hero__nav-actions,
 .docs-page .content__container .hero__nav-actions {
-  margin: 25px;
+  margin: 10px;
 }
 .landing-page .content__container .hero__nav-actions .nav-actions__cta,
 .editor-page .content__container .hero__nav-actions .nav-actions__cta,
 .docs-page .content__container .hero__nav-actions .nav-actions__cta {
-  margin: 0 25px;
+  margin: 10px;
   padding: 14px 25px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
+}
+.landing-page .content__container .walkthrough__video,
+.editor-page .content__container .walkthrough__video,
+.docs-page .content__container .walkthrough__video {
+  max-width: 550px;
 }
 .landing-page .footer__container,
 .editor-page .footer__container,
@@ -355,5 +369,16 @@ a:visited {
 }
 
 /** small screens **/
+@media (width <= 1023px) {
+  .content__container {
+    flex-direction: column;
+  }
+  .content__container .walkthrough {
+    margin: 25px !important;
+  }
+  .content__container .walkthrough__video {
+    max-width: 90vw !important;
+  }
+}
 
 /*# sourceMappingURL=styles.css.map */
