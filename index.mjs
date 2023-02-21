@@ -290,7 +290,9 @@ async function init() {
       htmlFilePath,
     ]);
 
-    console.log(`Your README is ready at "${compressFilePath}"`);
+    console.log(
+      `Thanks for using our tool!. Your README is ready at "${compressFilePath}"`
+    );
     generated = true;
   } catch (error) {
     console.error(error);
