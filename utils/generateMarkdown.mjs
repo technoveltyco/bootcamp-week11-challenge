@@ -14,13 +14,14 @@ const settings = {
   downloadsFolder: path.resolve("./.downloads/"),
   md: {
     headings: {
+      description: "Description",
       toc: "Table of Contents",
       installation: "Installation",
-      usage: "Usage/Examples",
+      usage: "Usage",
       license: "License",
       contributing: "Contributing",
-      tests: "Running Tests",
-      questions: "FAQs",
+      tests: "Tests",
+      questions: "Questions",
     },
   },
 };
@@ -147,13 +148,11 @@ async function generateMdToc(sections) {
   let html = "";
   let tocMd = "";
 
-  const headings = sections
-    .filter((head) => head !== "description")
-    .reduce((tocMd, heading, index) => {
-      heading = settings.md.headings[heading] || heading;
-      tocMd += index === 0 ? `# ${heading}` : `\n## ${heading}`;
-      return tocMd;
-    }, tocMd);
+  const headings = sections.reduce((tocMd, heading, index) => {
+    heading = settings.md.headings[heading] || heading;
+    tocMd += index === 0 ? `# ${heading}` : `\n## ${heading}`;
+    return tocMd;
+  }, tocMd);
 
   markdown = await renderMarkdownTemplate("toc", headings);
   html = parseMarkdown(markdown);
@@ -210,7 +209,15 @@ async function generateMarkdown(data) {
 
       // Generate ToC.
       if (section === "toc") {
-        const [tocMarkdown, tocHtml] = await generateMdToc(Object.keys(data));
+        let headings = Object.keys(data);
+
+        // Replace the title key with the user's input value.
+        const titleIndex = headings.indexOf("title");
+        if (titleIndex >= 0) {
+          headings[titleIndex] = data["title"];
+        }
+
+        const [tocMarkdown, tocHtml] = await generateMdToc(headings);
         mdOutput.write(tocMarkdown);
         htmlOutput.write(tocHtml);
         continue;
